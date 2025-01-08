@@ -160,7 +160,7 @@ const App = () => {
         )}
 
         {itemsAdded.length == 0 && (
-          <div className="orders-title-cross-symbol h-full w-full flex justify-center items-center gap-x-64 bg-zinc-100 relative">
+          <div className="orders-title-cross-symbol h-full w-full flex justify-center items-center gap-x-64 backdrop-blur-sm bg-white/40 relative">
             <div className="cart-items-present absolute top-0 flex justify-center items-center gap-x-64">
               <h1 className="orders mt-6 ml-5 text-left font-medium text-3xl">
                 Order Items
