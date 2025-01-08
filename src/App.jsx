@@ -128,16 +128,18 @@ const App = () => {
     taxes: 0,
     total: 0,
   });
+  const [showLoginPage, setShowLoginPage] = useState(false);
 
   useEffect(() => {
-    console.log("itemsAdded ", itemsAdded);
-    console.log("cartItems ", cartItems);
-    console.log("Orders summary", ordersSummary);
-  }, [ordersSummary, itemsAdded, cartItems]);
+    // console.log("itemsAdded ", itemsAdded);
+    // console.log("cartItems ", cartItems);
+    // console.log("Orders summary", ordersSummary);
+    console.log("login page", showLoginPage);
+  }, [ordersSummary, showLoginPage, cartItems]);
 
   return (
     <>
-      {/* -------------------------perfect-code---------------- */}
+      {/* -------------------------Order Page z-index---------------- */}
       <div
         className={`ordered-items-display-main-container top-0 right-0 absolute h-inherit w-1/3 backdrop-blur-sm bg-white/40 ${
           showOrdersTab == true ? "z-10" : "hidden"
@@ -189,11 +191,13 @@ const App = () => {
           setNumberOfItemsInCart={setNumberOfItemsInCart}
           ordersSummary={ordersSummary}
           setOrdersSummary={setOrdersSummary}
+          setShowLoginPage={setShowLoginPage}
         />
       </div>
 
+      {/* -----Entire App------- */}
       <div
-        className={`app-main-container w-full h-full bg-green-500 ${
+        className={`app-main-container w-full h-full bg-green-500 absolute ${
           showOrdersTab == true ? "z-0" : "block"
         }`}
       >
@@ -223,10 +227,13 @@ const App = () => {
         />
       </div>
 
-      {/* -----------------------perfect Code above------------- */}
-      {/* <div className="login-page-main-container h-full w-full bg-slate-100 relative">
-        <div className="login-form-subcontainer w-1/4 h-3/4 bg-amber-400 absolute top-20 left-1/3 rounded-lg shadow-cyan-500/50">
-          <div className="login-form-content h-4/5 w-4/5 bg-green-400 absolute top-10 left-10 bg-indigo-500">
+      <div
+        className={`login-page-main-container h-full w-3/4 backdrop-blur-sm bg-white/40 absolute left-48 z-30 ${
+          showLoginPage == true ? "z-30" : "hidden"
+        }`}
+      >
+        <div className="login-form-subcontainer w-2/4 h-3/4 backdrop-blur-sm bg-white/30 absolute top-20 left-64 rounded-lg shadow-cyan-500/50">
+          <div className="login-form-content h-4/5 w-4/5 backdrop-blur-lm absolute top-10 left-12 bg-white/10">
             <h1 className="text-center text-3xl font-semibold mt-4 relative">
               Login
             </h1>
@@ -252,7 +259,7 @@ const App = () => {
             </button>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

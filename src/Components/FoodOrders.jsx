@@ -9,6 +9,7 @@ const FoodOrders = ({
   setNumberOfItemsInCart,
   ordersSummary,
   setOrdersSummary,
+  setShowLoginPage,
 }) => {
   function increaseOrDecreaseQuantity(symbol, name, rupees, quantity) {
     if (typeof rupees === "string" && rupees.startsWith("R")) {
@@ -77,6 +78,10 @@ const FoodOrders = ({
           (prev.subtotal - quantity * rupees) * 0.3,
       }));
     }
+  }
+
+  function displayLoginPage() {
+    setShowLoginPage(true);
   }
 
   return (
@@ -173,7 +178,10 @@ const FoodOrders = ({
             <span className="text-2xl font-semibold text-black">Total</span>
             <span>Rs {ordersSummary.total}</span>
           </div>
-          <button className="w-full bg-orange-400 mt-10 mb-2 rounded-lg text-2xl font-medium">
+          <button
+            onClick={() => displayLoginPage()}
+            className="w-full bg-orange-400 mt-10 mb-2 rounded-lg text-2xl font-medium"
+          >
             Place Order
           </button>
         </div>
