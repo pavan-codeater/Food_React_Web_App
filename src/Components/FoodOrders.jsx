@@ -173,7 +173,7 @@ const FoodOrders = ({
             <span className="text-2xl font-semibold text-black">Total</span>
             <span>Rs {ordersSummary.total}</span>
           </div>
-          <button className="w-full bg-green-400 mt-10 rounded-lg text-2xl font-medium">
+          <button className="w-full bg-orange-400 mt-10 mb-2 rounded-lg text-2xl font-medium">
             Place Order
           </button>
         </div>

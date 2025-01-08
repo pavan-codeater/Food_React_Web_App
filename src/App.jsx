@@ -132,7 +132,6 @@ const App = () => {
   useEffect(() => {
     console.log("itemsAdded ", itemsAdded);
     console.log("cartItems ", cartItems);
-
     console.log("Orders summary", ordersSummary);
   }, [ordersSummary, itemsAdded, cartItems]);
 
