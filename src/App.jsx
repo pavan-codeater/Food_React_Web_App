@@ -130,14 +130,17 @@ const App = () => {
   });
 
   useEffect(() => {
+    console.log("itemsAdded ", itemsAdded);
+    console.log("cartItems ", cartItems);
+
     console.log("Orders summary", ordersSummary);
-  }, [ordersSummary]);
+  }, [ordersSummary, itemsAdded, cartItems]);
 
   return (
     <>
       {/* -------------------------perfect-code---------------- */}
       <div
-        className={`ordered-items-display-main-container top-0 right-0 absolute h-inherit w-1/3 bg-zinc-100 ${
+        className={`ordered-items-display-main-container top-0 right-0 absolute h-inherit w-1/3 backdrop-blur-sm bg-white/40 ${
           showOrdersTab == true ? "z-10" : "hidden"
         }`}
       >
@@ -221,7 +224,7 @@ const App = () => {
         />
       </div>
 
-      {/* -----------------------perfect Code------------- */}
+      {/* -----------------------perfect Code above------------- */}
       {/* <div className="login-page-main-container h-full w-full bg-slate-100 relative">
         <div className="login-form-subcontainer w-1/4 h-3/4 bg-amber-400 absolute top-20 left-1/3 rounded-lg shadow-cyan-500/50">
           <div className="login-form-content h-4/5 w-4/5 bg-green-400 absolute top-10 left-10 bg-indigo-500">

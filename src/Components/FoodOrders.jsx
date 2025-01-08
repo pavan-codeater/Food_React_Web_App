@@ -10,26 +10,11 @@ const FoodOrders = ({
   ordersSummary,
   setOrdersSummary,
 }) => {
-  useEffect(() => {
-    localStorage.setItem("itemsAdded", JSON.stringify(itemsAdded));
-    console.log("itemsAdded setItems", itemsAdded);
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    console.log("cartItems  setCartItems", itemsAdded);
-  }, [itemsAdded, cartItems, ordersSummary]);
-
-  function increaseOrDecreaseQuantity(symbol, name, rupees, amount = 0) {
-    let rupeesDup = "";
-    let quantity = 0;
-
-    if (typeof rupees == "string" && rupees.startsWith("R")) {
-      rupeesDup = rupees.replace(/\D/g, "");
-      rupeesDup = Number(rupeesDup);
-      //   console.log(rupeesDup);
+  function increaseOrDecreaseQuantity(symbol, name, rupees, quantity) {
+    if (typeof rupees === "string" && rupees.startsWith("R")) {
+      rupees = Number(rupees.replace(/\D/g, "")) || 0;
     }
 
-    if (typeof rupees == "number") {
-      quantity = rupees;
-    }
     if (symbol == "i") {
       setCartItems((prevState) =>
         prevState.map((item) =>
@@ -38,13 +23,15 @@ const FoodOrders = ({
       );
 
       setOrdersSummary((prev) => ({
-        ...prev,
-        subtotal: prev.subtotal + rupeesDup,
+        subtotal: (prev.subtotal || 0) + rupees,
         delivery: 20,
-        taxes: (prev.subtotal + rupeesDup) * 0.3,
+        taxes: ((prev.subtotal || 0) + rupees) * 0.3,
 
         total:
-          prev.subtotal + rupeesDup + 20 + (prev.subtotal + rupeesDup) * 0.3,
+          (prev.subtotal || 0) +
+          rupees +
+          20 +
+          ((prev.subtotal || 0) + rupees) * 0.3,
       }));
     }
 
@@ -60,12 +47,15 @@ const FoodOrders = ({
       );
 
       setOrdersSummary((prev) => ({
-        ...prev,
-        subtotal: prev.subtotal - rupeesDup,
+        subtotal: (prev.subtotal || 0) - rupees,
         delivery: 20,
-        taxes: (prev.subtotal - rupeesDup) * 0.3,
+        taxes: ((prev.subtotal || 0) - rupees) * 0.3,
+
         total:
-          prev.subtotal - rupeesDup + 20 + (prev.subtotal - rupeesDup) * 0.3,
+          (prev.subtotal || 0) -
+          rupees +
+          20 +
+          ((prev.subtotal || 0) - rupees) * 0.3,
       }));
     }
 
@@ -77,15 +67,14 @@ const FoodOrders = ({
       setItemsAdded((prevState) => prevState.filter((item) => item !== name));
       setNumberOfItemsInCart((prev) => prev - 1);
       setOrdersSummary((prev) => ({
-        ...prev,
-        subtotal: prev.subtotal - quantity * amount,
+        subtotal: prev.subtotal - quantity * rupees,
         delivery: 20,
-        taxes: (prev.subtotal - quantity * amount) * 0.3,
+        taxes: (prev.subtotal - quantity * rupees) * 0.3,
         total:
           prev.subtotal -
-          quantity * amount +
+          quantity * rupees +
           20 +
-          (prev.subtotal - quantity * amount) * 0.3,
+          (prev.subtotal - quantity * rupees) * 0.3,
       }));
     }
   }
@@ -107,7 +96,12 @@ const FoodOrders = ({
             <div className="border-2 border-lime-400 add-quantity-subtract bg-orange-400 h-8  flex gap-1 justify-around items-center rounded-md relative cursor-pointer">
               <span
                 onClick={() =>
-                  increaseOrDecreaseQuantity("d", item.name, item.rupees)
+                  increaseOrDecreaseQuantity(
+                    "d",
+                    item.name,
+                    item.rupees,
+                    item.quantity
+                  )
                 }
                 className="border-r-2 border-lime-400 text-2xl cursor-pointer"
               >
@@ -118,7 +112,12 @@ const FoodOrders = ({
               </span>
               <span
                 onClick={() =>
-                  increaseOrDecreaseQuantity("i", item.name, item.rupees)
+                  increaseOrDecreaseQuantity(
+                    "i",
+                    item.name,
+                    item.rupees,
+                    item.quantity
+                  )
                 }
                 className="border-lime-400 text-2xl cursor-pointer"
               >
@@ -133,8 +132,8 @@ const FoodOrders = ({
                 increaseOrDecreaseQuantity(
                   "delete",
                   item.name,
-                  item.quantity,
-                  item.rupees
+                  item.rupees,
+                  item.quantity
                 )
               }
             >
@@ -149,31 +148,29 @@ const FoodOrders = ({
       {itemsAdded.length != 0 && (
         <div className="order-summary-main-container">
           <br />
-          <p className="text-2xl font-semibold text-green-400 text-center">
+          <p className="text-2xl font-semibold text-black text-center">
             Order Total
           </p>
           <br />
           <hr className="border-4 border-dashed border-red-500" />
           <div className="subtotal flex justify-between items-center mt-6">
-            <span className="text-2xl font-semibold text-green-500">
-              Subtotal
-            </span>
+            <span className="text-2xl font-semibold text-black">Subtotal</span>
             <span>Rs {ordersSummary.subtotal}</span>
           </div>
           <div className="delivery-fees flex justify-between items-center mt-6">
-            <span className="text-2xl font-semibold text-green-500">
+            <span className="text-2xl font-semibold text-black">
               Delivery fees
             </span>
             <span>Rs {ordersSummary.delivery}</span>
           </div>
           <div className="taxes flex justify-between items-center mt-6">
-            <span className="text-2xl font-semibold text-green-500">Taxes</span>
+            <span className="text-2xl font-semibold text-black">Taxes</span>
             <span>Rs {ordersSummary.taxes}</span>
           </div>
           <br />
           <hr className="border-4 border-dashed border-red-500" />
           <div className="taxes flex justify-between items-center mt-6">
-            <span className="text-2xl font-semibold text-green-500">Total</span>
+            <span className="text-2xl font-semibold text-black">Total</span>
             <span>Rs {ordersSummary.total}</span>
           </div>
           <button className="w-full bg-green-400 mt-10 rounded-lg text-2xl font-medium">
