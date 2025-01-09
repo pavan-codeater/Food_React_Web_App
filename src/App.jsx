@@ -112,15 +112,7 @@ const App = () => {
   const [displayAll, setDisplayAll] = useState(true); // typeOfFood=="all"
   const [numberOfItemsInCart, setNumberOfItemsInCart] = useState(0); // track of # items in cart
   const [showOrdersTab, setShowOrdersTab] = useState(false); // hide or display orderstab based on z-index and display property
-  const [cartItems, setCartItems] = useState([
-    // {
-    //   imageUrl: "",
-    //   name: "",
-    //   quantity: "",
-    //   rupees: "",
-    //   onDelete: false,
-    // },
-  ]);
+  const [cartItems, setCartItems] = useState([]);
   const [itemsAdded, setItemsAdded] = useState([]); // just to avoid increment of counting food items of same dish
   const [ordersSummary, setOrdersSummary] = useState({
     subtotal: 0,
@@ -131,15 +123,12 @@ const App = () => {
   const [showLoginPage, setShowLoginPage] = useState(false);
 
   useEffect(() => {
-    // console.log("itemsAdded ", itemsAdded);
-    // console.log("cartItems ", cartItems);
-    // console.log("Orders summary", ordersSummary);
     console.log("login page", showLoginPage);
   }, [ordersSummary, showLoginPage, cartItems]);
 
   return (
     <>
-      {/* -------------------------Order Page z-index---------------- */}
+      {/* -------------------------Order tab to right side z-index -10---------------- */}
       <div
         className={`ordered-items-display-main-container top-0 right-0 absolute h-inherit w-1/3 backdrop-blur-sm bg-white/40 ${
           showOrdersTab == true ? "z-10" : "hidden"
@@ -227,6 +216,7 @@ const App = () => {
         />
       </div>
 
+      {/* ----------------------Login PAge---------------- */}
       <div
         className={`login-page-main-container h-full w-3/4 backdrop-blur-sm bg-white/40 absolute left-48 z-30 ${
           showLoginPage == true ? "z-30" : "hidden"

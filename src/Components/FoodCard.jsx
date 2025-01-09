@@ -26,7 +26,7 @@ const FoodCard = ({
     if (isItemPresent) {
       toast.success(`${foodName} has already present inside cart`, {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
@@ -39,7 +39,7 @@ const FoodCard = ({
 
     toast.success(`${foodName} has been added to cart`, {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
