@@ -7,6 +7,9 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { ImCross } from "react-icons/im";
 import FoodOrders from "./Components/FoodOrders";
 import { FaCartArrowDown } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const foodItems = [
   {
     name: "pan cakes",
@@ -122,20 +125,41 @@ const App = () => {
   });
   const [showLoginPage, setShowLoginPage] = useState(false);
   const [animateShake, setAnimateShake] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    otp: 0,
+  });
+
+  const [otpValue, setOtpValue] = useState(null);
+
+  // const navigate = useNavigate();
 
   useEffect(() => {
     // console.log("login page", showLoginPage);
   }, [ordersSummary, showLoginPage, cartItems, animateShake]);
 
-  function triggerShake() {
-    // console.log("Inside Trigger Shake function");
-    if (showLoginPage) {
-      setAnimateShake(true);
+  function handleSendOtp() {
+    axios
+      .post("http://localhost:3000/api/otp", { email: formData.email })
+      .then((response) => {
+        const receivedOtp = Number(response.data.otp);
+        setOtpValue(receivedOtp); // Update the state
+        console.log("OTP Value from backend: ", receivedOtp);
+      });
+  }
+
+  function handleVerifyOtp() {
+    if (otpValue == Number(formData.otp)) {
+      console.log("Verified OTP success");
+      // navigate("/dashboard");
     }
-    setTimeout(() => {
-      console.log("inside setTimeout");
-      setAnimateShake(false);
-    }, 5000);
+  }
+
+  function handleEmailOTPChange(e) {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   }
 
   return (
@@ -243,25 +267,34 @@ const App = () => {
             <h1 className="text-center text-3xl font-semibold mt-4 relative">
               Login
             </h1>
+
             <input
-              onClick={() => setAnimateShake(false)}
               type="email"
               name="email"
-              id="email"
+              onChange={handleEmailOTPChange}
+              value={formData.email}
               placeholder="Enter Email..."
               className="w-3/4 ml-10 mt-10 h-12 text-2xl rounded-lg"
             />
-            <button className="bg-fuchsia-500 w-3/4 ml-10 mt-9 h-12 rounded-lg text-center text-1xl font-medium">
+            <button
+              onClick={handleSendOtp}
+              className="bg-fuchsia-500 w-3/4 ml-10 mt-9 h-12 rounded-lg text-center text-1xl font-medium"
+            >
               SEND OTP
             </button>
             <input
               type="text"
-              name="password"
-              id="email"
+              value={formData.otp}
+              onChange={handleEmailOTPChange}
+              name="otp"
+              id="otp"
               placeholder="Enter OTP..."
               className="w-3/4 ml-10 mt-9 h-12 text-2xl rounded-lg"
             />
-            <button className="bg-fuchsia-500 w-3/4 ml-10 mt-9 h-12 rounded-lg text-center text-1xl font-medium">
+            <button
+              onClick={handleVerifyOtp}
+              className="bg-fuchsia-500 w-3/4 ml-10 mt-9 h-12 rounded-lg text-center text-1xl font-medium"
+            >
               Verify OTP
             </button>
           </div>
