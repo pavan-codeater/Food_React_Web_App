@@ -5,21 +5,21 @@ export default {
     extend: {
       keyframes: {
         shake: {
-          "0%": { transform: "translate(0p)" },
+          "0%": { transform: "translate(0px)" },
 
-          "10%": { transform: "translateX(5px)" },
+          "10%": { transform: "translateX(-10px)" },
 
-          "20%": { transform: "translateX(5px)" },
+          "20%": { transform: "translateX(10px)" },
 
-          "30%": { transform: "translateX(-3px)" },
+          "30%": { transform: "translateX(-30px)" },
 
-          "40%": { transform: "translateX(3px)" },
+          "40%": { transform: "translateX(30px)" },
 
           "50%": { transform: "translateX(0px)" },
         },
       },
       animation: {
-        "shake-slide": "refine 2s infinite",
+        shake: "shake 0.5s ease-in-out",
       },
     },
   },

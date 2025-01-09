@@ -121,10 +121,22 @@ const App = () => {
     total: 0,
   });
   const [showLoginPage, setShowLoginPage] = useState(false);
+  const [animateShake, setAnimateShake] = useState(false);
 
   useEffect(() => {
-    console.log("login page", showLoginPage);
-  }, [ordersSummary, showLoginPage, cartItems]);
+    // console.log("login page", showLoginPage);
+  }, [ordersSummary, showLoginPage, cartItems, animateShake]);
+
+  function triggerShake() {
+    // console.log("Inside Trigger Shake function");
+    if (showLoginPage) {
+      setAnimateShake(true);
+    }
+    setTimeout(() => {
+      console.log("inside setTimeout");
+      setAnimateShake(false);
+    }, 5000);
+  }
 
   return (
     <>
@@ -218,16 +230,21 @@ const App = () => {
 
       {/* ----------------------Login PAge---------------- */}
       <div
-        className={`login-page-main-container h-full w-3/4 backdrop-blur-sm bg-white/40 absolute left-48 z-30 ${
-          showLoginPage == true ? "z-30" : "hidden"
+        className={`login-page-main-container h-full w-3/4 backdrop-blur-sm bg-white/40 absolute left-48 z-30 hover:animate-shake ${
+          showLoginPage ? "z-30" : "hidden"
         }`}
       >
-        <div className="login-form-subcontainer w-2/4 h-3/4 backdrop-blur-sm bg-white/30 absolute top-20 left-64 rounded-lg shadow-cyan-500/50">
-          <div className="login-form-content h-4/5 w-4/5 backdrop-blur-lm absolute top-10 left-12 bg-white/10">
+        <div
+          className={`login-form-subcontainer w-2/4 h-3/4 backdrop-blur-sm bg-white/30 absolute top-20 left-64 rounded-lg shadow-cyan-500/50`}
+        >
+          <div
+            className={`login-form-content h-4/5 w-4/5 backdrop-blur-lm absolute top-10 left-12 bg-white/10 hover:animate-none`}
+          >
             <h1 className="text-center text-3xl font-semibold mt-4 relative">
               Login
             </h1>
             <input
+              onClick={() => setAnimateShake(false)}
               type="email"
               name="email"
               id="email"
@@ -253,5 +270,25 @@ const App = () => {
     </>
   );
 };
+
+//flex-grow is related to chidren and size varies according to flex-grow property
+
+{
+  /* <div className="container">
+  <div className="flex1"></div>
+  <div className="flex2"></div>
+  <div className="flex-3"></div>
+</div>; */
+}
+
+// .flex1{
+//   flex-grow:1
+// }
+// .flex2{
+//   flex-grow:2
+// }
+// .flex3{
+//   flex-grow:3
+// }
 
 export default App;
