@@ -8,6 +8,8 @@ import { ImCross } from "react-icons/im";
 import FoodOrders from "./Components/FoodOrders";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import CheckOutPage from "./Components/CheckOutPage";
 import axios from "axios";
 
 const foodItems = [
@@ -127,16 +129,14 @@ const App = () => {
   const [animateShake, setAnimateShake] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    otp: 0,
+    otp: null,
   });
 
   const [otpValue, setOtpValue] = useState(null);
 
-  // const navigate = useNavigate();
-
   useEffect(() => {
-    // console.log("login page", showLoginPage);
-  }, [ordersSummary, showLoginPage, cartItems, animateShake]);
+    console.log("itemsAdded ", itemsAdded);
+  }, [ordersSummary, showLoginPage, cartItems, animateShake, itemsAdded]);
 
   function handleSendOtp() {
     axios
@@ -151,7 +151,8 @@ const App = () => {
   function handleVerifyOtp() {
     if (otpValue == Number(formData.otp)) {
       console.log("Verified OTP success");
-      // navigate("/dashboard");
+      setOtpValue(null);
+      setShowLoginPage(false);
     }
   }
 
@@ -305,23 +306,5 @@ const App = () => {
 };
 
 //flex-grow is related to chidren and size varies according to flex-grow property
-
-{
-  /* <div className="container">
-  <div className="flex1"></div>
-  <div className="flex2"></div>
-  <div className="flex-3"></div>
-</div>; */
-}
-
-// .flex1{
-//   flex-grow:1
-// }
-// .flex2{
-//   flex-grow:2
-// }
-// .flex3{
-//   flex-grow:3
-// }
 
 export default App;

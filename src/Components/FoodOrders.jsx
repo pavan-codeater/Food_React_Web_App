@@ -160,23 +160,23 @@ const FoodOrders = ({
           <hr className="border-4 border-dashed border-red-500" />
           <div className="subtotal flex justify-between items-center mt-6">
             <span className="text-2xl font-semibold text-black">Subtotal</span>
-            <span>Rs {ordersSummary.subtotal}</span>
+            <span className="text-3xl">Rs {ordersSummary.subtotal}</span>
           </div>
           <div className="delivery-fees flex justify-between items-center mt-6">
             <span className="text-2xl font-semibold text-black">
               Delivery fees
             </span>
-            <span>Rs {ordersSummary.delivery}</span>
+            <span className="text-3xl">Rs {ordersSummary.delivery}</span>
           </div>
           <div className="taxes flex justify-between items-center mt-6">
             <span className="text-2xl font-semibold text-black">Taxes</span>
-            <span>Rs {ordersSummary.taxes}</span>
+            <span className="text-3xl">Rs {ordersSummary.taxes}</span>
           </div>
           <br />
           <hr className="border-4 border-dashed border-red-500" />
           <div className="taxes flex justify-between items-center mt-6">
             <span className="text-2xl font-semibold text-black">Total</span>
-            <span>Rs {ordersSummary.total}</span>
+            <span className="text-3xl">Rs {ordersSummary.total}</span>
           </div>
           <button
             onClick={() => displayLoginPage()}

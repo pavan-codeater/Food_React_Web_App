@@ -2,6 +2,11 @@ import express from "express";
 import bcrypt from "bcrypt";
 import cors from "cors";
 import nodemailer from "nodemailer";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
@@ -27,15 +32,34 @@ app.post("/api/otp", async (req, res) => {
     service: "gmail",
     auth: {
       user: "pavanlsuse@gmail.com", // Replace with your email
-      pass: "poxz chas oeqk yvno", // Replace with your email password or app password
+      pass: "", // Replace with your email password or app password
     },
   });
 
   const mailOptions = {
-    from: "pavanlsuse@gmail.com",
+    from: '"Zomato" pavanlsuse@gmail.com',
     to: email,
-    subject: "Your OTP Code",
-    text: `Hi This is from Tomato and Your OTP code is ${otp}`,
+    subject: "Your OTP Code for food Delivery",
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+        <h2 style="color: #ff6347;">Hello</h2>
+        <h1 style="color: #555;">This is from <strong>Zomato</strong>.</h1>
+        <p style="color: #333;">Your OTP code is:</p>
+        <div style="font-size: 24px; font-weight: bold; color: #4CAF50;">${otp}</div>
+        <p>Use this code to verify your email address. This OTP is valid for 10 minutes.</p>
+        <br>
+        <img src="cid:logo" alt="Tomato Logo" style="width: 150px; display: block; margin: 0 auto;" />
+        <br>
+        <p style="font-size: 14px; color: #999;">If you did not request this code, please ignore this email.</p>
+      </div>
+    `,
+    attachments: [
+      {
+        filename: "zomato.png",
+        path: path.join(__dirname, "../src/zomato.png"),
+        cid: "logo", // Same as in the img src above
+      },
+    ],
   };
 
   try {

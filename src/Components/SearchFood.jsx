@@ -38,7 +38,7 @@ const SearchFood = ({
       ></input>
       <div className="basket-number-of-items">
         <span>
-          <strong>{numberOfItemsInCart}</strong>
+          <strong className="text-2xl">{numberOfItemsInCart}</strong>
         </span>
         <SlBasket
           onClick={() => displayOrderTabs()}
