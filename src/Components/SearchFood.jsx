@@ -33,8 +33,8 @@ const SearchFood = ({
         value={searchValue}
         onChange={displayItems}
         type="text"
-        className="px-4 py-2 bg-gray-400 w-3/4 h-3/4 xl:space-x-12 text-xl"
-        placeholder="Search your dish..."
+        className="px-4 py-2 w-3/4 h-3/4 xl:space-x-12 text-xl placeholder-red-400::placeholder border-2 border-red-500"
+        placeholder="Start Typing your dish..."
       ></input>
       <div className="basket-number-of-items">
         <span>

@@ -133,6 +133,7 @@ const App = () => {
   });
 
   const [otpValue, setOtpValue] = useState(null);
+  const [seconds, setSeconds] = useState(60);
 
   useEffect(() => {
     console.log("itemsAdded ", itemsAdded);
@@ -143,16 +144,40 @@ const App = () => {
       .post("http://localhost:3000/api/otp", { email: formData.email })
       .then((response) => {
         const receivedOtp = Number(response.data.otp);
-        setOtpValue(receivedOtp); // Update the state
+        setOtpValue(receivedOtp);
         console.log("OTP Value from backend: ", receivedOtp);
+        // timer
+        const intervalId = setInterval(() => {
+          setSeconds((prevSeconds) => {
+            if (prevSeconds <= 1) {
+              clearInterval(intervalId); // Stop the timer
+              return 0; // Ensure it doesn't exceed 60
+            }
+            return prevSeconds - 1;
+          });
+        }, 1000);
+
+        return () => clearInterval(intervalId);
       });
   }
 
   function handleVerifyOtp() {
-    if (otpValue == Number(formData.otp)) {
+    if (otpValue != null && otpValue == Number(formData.otp) && seconds >= 1) {
       console.log("Verified OTP success");
-      setOtpValue(null);
       setShowLoginPage(false);
+      setOtpValue(null);
+      setFormData((prev) => ({
+        ...prev,
+        email: "",
+        otp: null,
+      }));
+    } else {
+      setOtpValue(null);
+      setFormData((prev) => ({
+        ...prev,
+        email: "",
+        otp: null,
+      }));
     }
   }
 
@@ -268,7 +293,6 @@ const App = () => {
             <h1 className="text-center text-3xl font-semibold mt-4 relative">
               Login
             </h1>
-
             <input
               type="email"
               name="email"
@@ -298,6 +322,24 @@ const App = () => {
             >
               Verify OTP
             </button>
+
+            {seconds <= 59 && seconds > 0 && otpValue == formData.otp && (
+              <p className="text-center text-2xl text-red-600">
+                Your entered OTP is correct
+              </p>
+            )}
+
+            {seconds <= 59 && seconds > 0 && otpValue != formData.otp && (
+              <p className="text-center text-2xl text-red-600">
+                Remaining Time for OTP {seconds}
+              </p>
+            )}
+
+            {seconds == 0 && (
+              <p className="text-center text-2xl text-red-600">
+                Try Once Again
+              </p>
+            )}
           </div>
         </div>
       </div>

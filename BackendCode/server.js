@@ -32,7 +32,7 @@ app.post("/api/otp", async (req, res) => {
     service: "gmail",
     auth: {
       user: "pavanlsuse@gmail.com", // Replace with your email
-      pass: "", // Replace with your email password or app password
+      pass: "yaia teor orhc vmei", // Replace with your email password or app password
     },
   });
 
