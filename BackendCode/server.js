@@ -32,7 +32,7 @@ app.post("/api/otp", async (req, res) => {
     service: "gmail",
     auth: {
       user: "pavanlsuse@gmail.com", // Replace with your email
-      pass: "qcfq elyy luyu fqrt", // Replace with your email password or app password
+      pass: "yexm npvs bsjt hcae", // Replace with your email password or app password
     },
   });
 
@@ -42,8 +42,8 @@ app.post("/api/otp", async (req, res) => {
     subject: "Your OTP Code for food Delivery",
     html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-        <h2 style="color: #ff6347;">Hello</h2>
-        <h1 style="color: #555;">This is from <strong>Zomato</strong>.</h1>
+        <h2 style="color: #ff6347;"> Hello Lakshman </h2>
+        <h1 style="color: #555;">This is from <strong>Food Delivery App</strong>.</h1>
         <p style="color: #333;">Your OTP code is:</p>
         <div style="font-size: 24px; font-weight: bold; color: #4CAF50;">${otp}</div>
         <p>Use this code to verify your email address. This OTP is valid for 10 minutes.</p>
